@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://btlnp87hiqy8r"]
+
+[ext_resource type="Script" path="res://props/gift_box.gd" id="1_6nhae"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qod40"]
+size = Vector3(0.01, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b80b5"]
+size = Vector3(0.01, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jcej3"]
+size = Vector3(0.47, 0.3, 0.47)
+
+[node name="giftBox" type="Node3D"]
+script = ExtResource("1_6nhae")
+
+[node name="boxWalls" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="boxWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.25, 0)
+mesh = SubResource("BoxMesh_qod40")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boxWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.25, 0)
+shape = SubResource("BoxShape3D_b80b5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="boxWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0)
+mesh = SubResource("BoxMesh_qod40")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="boxWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0)
+shape = SubResource("BoxShape3D_b80b5")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="boxWalls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.09278e-08, 0.25, 0.245454)
+mesh = SubResource("BoxMesh_qod40")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="boxWalls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.09278e-08, 0.25, 0.245454)
+shape = SubResource("BoxShape3D_b80b5")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="boxWalls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.09278e-08, 0.25, -0.245043)
+mesh = SubResource("BoxMesh_qod40")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="boxWalls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.09278e-08, 0.25, -0.245043)
+shape = SubResource("BoxShape3D_b80b5")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="boxWalls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 1, -4.37114e-08, 4.37114e-08, 4.37114e-08, 1, 1.91069e-15, -1.09278e-08, 0.00678053, 0.000431776)
+mesh = SubResource("BoxMesh_qod40")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="boxWalls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 1, -4.37114e-08, 4.37114e-08, 4.37114e-08, 1, 1.91069e-15, -1.09278e-08, 0.00678053, 0.000431776)
+shape = SubResource("BoxShape3D_b80b5")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.177777, 0)
+collision_layer = 64
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_jcej3")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.868822, 0)
+billboard = 1
+text = "Gifts:
+0"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

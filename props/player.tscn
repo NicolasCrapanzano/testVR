@@ -1,0 +1,46 @@
+[gd_scene load_steps=11 format=3 uid="uid://b3w1hsq5hcana"]
+
+[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="1_2iqwa"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="2_elhk0"]
+[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="2_uks0o"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_sgqjl"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_qwlte"]
+[ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="5_q2iui"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="5_qhdtb"]
+[ext_resource type="PackedScene" uid="uid://clt88d5d1dje4" path="res://addons/godot-xr-tools/functions/movement_crouch.tscn" id="6_wvdd8"]
+[ext_resource type="PackedScene" uid="uid://bft3xyxs31ci3" path="res://addons/godot-xr-tools/functions/function_pose_detector.tscn" id="8_jtumc"]
+[ext_resource type="PackedScene" uid="uid://bxm1ply47vaan" path="res://addons/godot-xr-tools/functions/movement_climb.tscn" id="9_ocgdm"]
+
+[node name="XROrigin3D" type="XROrigin3D"]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="leftController" type="XRController3D" parent="."]
+tracker = &"left_hand"
+
+[node name="LeftHand" parent="leftController" instance=ExtResource("1_2iqwa")]
+
+[node name="FunctionPickup" parent="leftController/LeftHand" instance=ExtResource("2_elhk0")]
+
+[node name="rightController" type="XRController3D" parent="."]
+tracker = &"right_hand"
+
+[node name="RightHand" parent="rightController" instance=ExtResource("2_uks0o")]
+
+[node name="FunctionPickup" parent="rightController/RightHand" instance=ExtResource("2_elhk0")]
+
+[node name="MovementDirect" parent="rightController/RightHand" instance=ExtResource("3_sgqjl")]
+
+[node name="MovementTurn" parent="rightController/RightHand" instance=ExtResource("4_qwlte")]
+turn_mode = 2
+
+[node name="MovementJump" parent="rightController/RightHand" instance=ExtResource("5_q2iui")]
+
+[node name="MovementCrouch" parent="rightController/RightHand" instance=ExtResource("6_wvdd8")]
+
+[node name="FunctionPoseDetector" parent="rightController/RightHand" instance=ExtResource("8_jtumc")]
+
+[node name="PlayerBody" parent="." instance=ExtResource("5_qhdtb")]
+
+[node name="MovementClimb" parent="." instance=ExtResource("9_ocgdm")]

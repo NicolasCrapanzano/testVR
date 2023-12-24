@@ -1,0 +1,145 @@
+[gd_scene load_steps=24 format=3 uid="uid://xxlsyfu6t7n1"]
+
+[ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1_xx4rn"]
+[ext_resource type="PackedScene" uid="uid://b3w1hsq5hcana" path="res://props/player.tscn" id="2_cn38r"]
+[ext_resource type="PackedScene" uid="uid://cjyilbm4ucc7s" path="res://addons/godot-xr-tools/objects/climbable.tscn" id="3_524vt"]
+[ext_resource type="Material" uid="uid://c4ntuil56b80e" path="res://materials/climable.tres" id="4_687ue"]
+[ext_resource type="PackedScene" uid="uid://3yxv0nms1vhv" path="res://props/pickable_canB.tscn" id="5_ttun7"]
+[ext_resource type="PackedScene" uid="uid://btlnp87hiqy8r" path="res://props/gift_box.tscn" id="6_hh27d"]
+[ext_resource type="PackedScene" uid="uid://b6kd52ya10vtc" path="res://props/pickable_canBroken.tscn" id="7_eoa7v"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4d3o6"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_b1nh5"]
+sky_material = SubResource("ProceduralSkyMaterial_4d3o6")
+
+[sub_resource type="Environment" id="Environment_77jtf"]
+background_mode = 2
+sky = SubResource("Sky_b1nh5")
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_jb3fp"]
+size = Vector3(5, 1.84, 0.58)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dajq2"]
+size = Vector3(5, 1.8, 0.567139)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ld4n3"]
+size = Vector3(5, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cjcd1"]
+size = Vector3(5, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4jyb8"]
+size = Vector3(2.5, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ae7i4"]
+size = Vector3(2.5, 1, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4o1bh"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pewtk"]
+material = SubResource("StandardMaterial3D_4o1bh")
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1tmia"]
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dfgr8"]
+size = Vector3(5, 1, 9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8subu"]
+size = Vector3(5, 1, 9)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lpejh"]
+material = ExtResource("4_687ue")
+height = 4.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_euehj"]
+height = 4.0
+
+[node name="main" type="Node3D"]
+
+[node name="StartXR" parent="." instance=ExtResource("1_xx4rn")]
+
+[node name="XROrigin3D" parent="." instance=ExtResource("2_cn38r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.07718, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0.148546, 0.254606, 0.955568, -0.477425, 0.864683, -0.156173, 0, 8.51838, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_77jtf")
+
+[node name="mapContent" type="Node3D" parent="."]
+
+[node name="obstacleCrouch" type="StaticBody3D" parent="mapContent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48228, 3.1742, -4.3965)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mapContent/obstacleCrouch"]
+mesh = SubResource("BoxMesh_jb3fp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mapContent/obstacleCrouch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0125732)
+shape = SubResource("BoxShape3D_dajq2")
+
+[node name="obstacleJump" type="StaticBody3D" parent="mapContent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.456, 1.1, -7.01)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mapContent/obstacleJump"]
+mesh = SubResource("BoxMesh_ld4n3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mapContent/obstacleJump"]
+shape = SubResource("BoxShape3D_cjcd1")
+
+[node name="ramp" type="StaticBody3D" parent="mapContent"]
+transform = Transform3D(1, 0, 0, 0, 0.983344, -0.181755, 0, 0.181755, 0.983344, 1.27723, 0.364629, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mapContent/ramp"]
+mesh = SubResource("BoxMesh_4jyb8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mapContent/ramp"]
+shape = SubResource("BoxShape3D_ae7i4")
+
+[node name="ground" type="StaticBody3D" parent="mapContent"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mapContent/ground"]
+mesh = SubResource("BoxMesh_pewtk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mapContent/ground"]
+shape = SubResource("BoxShape3D_1tmia")
+
+[node name="platform" type="StaticBody3D" parent="mapContent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48228, 0.731831, -6.38206)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mapContent/platform"]
+mesh = SubResource("BoxMesh_dfgr8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mapContent/platform"]
+shape = SubResource("BoxShape3D_8subu")
+
+[node name="Climbable" parent="mapContent" instance=ExtResource("3_524vt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.83376, 3.15869, -10.0174)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mapContent/Climbable"]
+mesh = SubResource("CylinderMesh_lpejh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="mapContent/Climbable"]
+shape = SubResource("CylinderShape3D_euehj")
+
+[node name="Label3D" type="Label3D" parent="mapContent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28832, 2, -2.64892)
+text = "Collect all the Gifts."
+
+[node name="PickableObject" parent="." instance=ExtResource("5_ttun7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.902128, 1.26088, -1.98428)
+
+[node name="giftBox" parent="." instance=ExtResource("6_hh27d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.296323, 0.506819, -1.60712)
+
+[node name="PickableObject2" parent="." instance=ExtResource("7_eoa7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.629663, 1.23183, -1.9904)
